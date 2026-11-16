@@ -1,0 +1,22 @@
+
+# AWS EC2용 Python 환경
+FROM python:3.14-slim
+
+# 컨테이너 작업 폴더
+WORKDIR /app
+
+# Python 패키지 설치
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# FindBack 소스코드 복사
+COPY app.py .
+
+# SQLite 저장 폴더 생성
+RUN mkdir -p /app/data
+
+# 웹서버 내부 포트
+EXPOSE 8000
+
+# DB 초기화 후 Gunicorn 실행
+CMD ["sh", "-c", "python -c 'from app import init_db; init_db()' && exec gunicorn --bind 0.0.0.0:8000 app:app"]
