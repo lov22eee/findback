@@ -233,207 +233,102 @@ def home():
         <title>FindBack | 분실물 찾기</title>
 
         <style>
-            * { box-sizing: border-box; }
-
-            body {
-                margin: 0;
-                background: #f3f6fa;
-                color: #263445;
-                font-family: "Malgun Gothic", Arial, sans-serif;
-                line-height: 1.6;
+            :root { --ink:#173b3a; --teal:#157a6e; --muted:#73817d; --line:#dfe8e2; }
+            * { box-sizing:border-box; }
+            html { scroll-behavior:smooth; }
+            body { margin:0; background:#f5f7f2; color:var(--ink); font-family:"Malgun Gothic",Arial,sans-serif; line-height:1.6; }
+            a { color:inherit; text-decoration:none; }
+            .topbar { background:#fff; border-bottom:1px solid var(--line); }
+            .nav-inner { max-width:1140px; margin:auto; min-height:72px; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+            .brand { display:flex; align-items:center; gap:10px; font-size:23px; font-weight:800; letter-spacing:-1px; }
+            .brand-mark { width:33px; height:33px; border-radius:11px; background:var(--teal); display:grid; place-items:center; color:white; font-size:22px; }
+            nav { display:flex; gap:26px; font-size:13px; color:#61736c; font-weight:700; }
+            nav a:hover { color:var(--teal); }
+            header { max-width:1140px; margin:auto; padding:34px 28px 30px; display:flex; justify-content:space-between; align-items:center; gap:32px; }
+            .eyebrow { color:var(--teal); letter-spacing:2px; font-size:10px; font-weight:800; margin:0 0 10px; }
+            header h1 { font-size:35px; line-height:1.35; letter-spacing:-1.8px; margin:0 0 10px; font-weight:800; }
+            header h1 span { color:var(--teal); }
+            header p { color:#708078; margin:0; font-size:13px; }
+            .hero-note { display:flex; align-items:center; gap:17px; padding:19px 23px; background:#e9f0e5; border:1px solid #dce7d5; border-radius:18px; transform:rotate(-2deg); min-width:245px; }
+            .hero-icon { width:53px; height:53px; color:var(--teal); background:#fff; border-radius:16px; display:grid; place-items:center; }
+            .hero-note strong { display:block; font-size:13px; margin-bottom:4px; }
+            .hero-note small { color:#7c8874; font-size:11px; }
+            .container { max-width:1140px; margin:0 auto; padding:0 28px; }
+            .workspace { display:grid; grid-template-columns:1.05fr .95fr; gap:20px; align-items:start; }
+            .panel { background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:0 4px 20px #193e2d04; scroll-margin-top:20px; min-width:0; }
+            .register-panel { grid-column:1; grid-row:1 / span 2; border-top:3px solid var(--teal); }
+            .search-panel,.manage-panel { grid-column:2; }
+            h2 { margin:0 0 6px; font-size:18px; letter-spacing:-.7px; display:flex; gap:9px; align-items:center; }
+            h3 { font-size:14px; margin:0 0 10px; }
+            .step { font-size:10px; letter-spacing:0; padding:3px 7px; border-radius:6px; color:var(--teal); background:#eaf3ee; font-weight:800; }
+            .subtitle { color:var(--muted); font-size:11px; margin:0 0 21px; }
+            .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+            .wide { grid-column:1 / -1; }
+            label { display:block; font-size:11px; font-weight:700; color:#53675e; }
+            input,select,textarea { display:block; width:100%; min-width:0; margin-top:7px; padding:10px 11px; border:1px solid #dce5de; border-radius:8px; background:#fbfcf9; color:var(--ink); font:inherit; font-size:12px; transition:border-color .15s,box-shadow .15s; }
+            input,select { min-height:41px; }
+            input::placeholder,textarea::placeholder { color:#9aa69e; }
+            input:focus,select:focus,textarea:focus { outline:none; border-color:#409c86; box-shadow:0 0 0 3px #157a6e12; background:white; }
+            textarea { min-height:96px; resize:vertical; }
+            button { background:var(--teal); color:white; border:1px solid transparent; border-radius:8px; padding:11px 16px; font:inherit; font-size:12px; font-weight:700; cursor:pointer; transition:background .15s,transform .15s; }
+            button:hover { background:#106359; }
+            button:active { transform:translateY(1px); }
+            button:focus-visible,a:focus-visible { outline:3px solid #edb76c; outline-offset:3px; }
+            .register-panel button.wide { margin-top:3px; }
+            .manage-panel button.wide { color:var(--teal); border-color:#c8ded3; background:#edf5ef; }
+            .manage-panel button.wide:hover { background:#dfeee3; }
+            .form-note { margin:14px 0 0; font-size:10px; color:#8a978e; display:flex; align-items:center; gap:6px; }
+            .form-note::before { content:""; width:5px; height:5px; border-radius:50%; background:#91ac92; flex:none; }
+            .notice { border:1px solid #c7e3cf; border-radius:10px; padding:14px 18px; margin-bottom:18px; background:#e9f5ec; color:#246246; overflow-wrap:anywhere; font-size:13px; }
+            .notice.error { background:#fff2ea; border-color:#f2dac8; color:#a75532; }
+            .manage-code { background:#edf4ef; border:1px solid #c8dfd0; border-radius:12px; padding:17px; margin-bottom:18px; overflow-wrap:anywhere; font-size:13px; }
+            .manage-code p { margin:8px 0; }
+            .search-bar { display:grid; grid-template-columns:minmax(0,1fr) 83px auto; gap:7px; align-items:end; }
+            .search-bar input,.search-bar select { margin:0; }
+            .search-bar button { padding:11px 12px; min-height:41px; }
+            .search-hint { font-size:10px; color:#9aa69e; margin:13px 0 0; }
+            .results { display:grid; grid-template-columns:1fr; gap:14px; margin-top:18px; }
+            .item-card { border:1px solid #dfe8e0; border-radius:12px; padding:18px; min-width:0; background:#fcfdfb; }
+            .tag { display:inline-block; padding:3px 8px; border-radius:5px; font-size:10px; font-weight:700; background:#eef0fa; color:#686eaf; margin-bottom:10px; }
+            .tag.found { background:#e5f1e9; color:#357d57; }
+            .item-card h3 { font-size:16px; overflow-wrap:anywhere; }
+            .item-card p { margin:5px 0; font-size:11px; color:#718174; overflow-wrap:anywhere; }
+            .request-box { border-top:1px dashed #dbe6dd; padding-top:15px; margin-top:16px; }
+            .request-box input,.request-box textarea { margin-bottom:10px; }
+            .request-entry { background:#f0f6ef; border:1px solid #dce8db; border-radius:10px; padding:15px; margin-top:12px; font-size:12px; overflow-wrap:anywhere; }
+            .request-entry p { margin:5px 0; font-size:11px; color:#6c7f70; }
+            footer { max-width:1084px; margin:26px auto 0; border-top:1px solid #e1e8df; padding:17px 0 22px; color:#8c9990; font-size:10px; display:flex; justify-content:space-between; gap:12px; }
+            footer strong { color:#698074; letter-spacing:-.3px; }
+            @media(max-width:760px) {
+                .nav-inner { padding:0 20px; min-height:62px; } nav { gap:15px; font-size:11px; }
+                header { padding:27px 20px 24px; } header h1 { font-size:29px; } .hero-note { display:none; }
+                .container { padding:0 16px; } .workspace { grid-template-columns:1fr; gap:16px; }
+                .register-panel,.search-panel,.manage-panel { grid-column:auto; grid-row:auto; }
+                .panel { padding:20px; } footer { margin:24px 16px 0; }
             }
-
-            header {
-                background: #173f59;
-                color: white;
-                padding: 42px 20px;
-                text-align: center;
-            }
-
-            header h1 {
-                font-size: 34px;
-                margin: 0 0 8px;
-            }
-
-            header p {
-                margin: 0;
-                color: #d5e5ef;
-            }
-
-            .container {
-                max-width: 1000px;
-                margin: 30px auto;
-                padding: 0 16px;
-            }
-
-            .panel {
-                background: white;
-                border: 1px solid #e2e8f0;
-                border-radius: 14px;
-                padding: 26px;
-                margin-bottom: 22px;
-                box-shadow: 0 3px 12px rgba(0,0,0,0.04);
-            }
-
-            h2 { margin-top: 0; font-size: 22px; }
-            h3 { margin: 0 0 10px; }
-
-            .subtitle {
-                color: #687888;
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-
-            .form-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-            }
-
-            .wide { grid-column: 1 / -1; }
-
-            label {
-                display: block;
-                font-weight: bold;
-                font-size: 14px;
-            }
-
-            input, select, textarea {
-                display: block;
-                width: 100%;
-                margin-top: 6px;
-                padding: 12px;
-                border: 1px solid #cbd5e1;
-                border-radius: 8px;
-                background: white;
-                font: inherit;
-                font-size: 14px;
-            }
-
-            textarea { min-height: 88px; resize: vertical; }
-
-            button {
-                background: #1674ad;
-                color: white;
-                border: 0;
-                border-radius: 8px;
-                padding: 12px 20px;
-                font: inherit;
-                font-weight: bold;
-                cursor: pointer;
-            }
-
-            button:hover { background: #105d8c; }
-
-            .notice {
-                border-radius: 10px;
-                padding: 16px;
-                margin-bottom: 20px;
-                background: #e6f4ea;
-                color: #176134;
-                overflow-wrap: anywhere;
-            }
-
-            .notice.error {
-                background: #fce8e6;
-                color: #a32929;
-            }
-
-            .manage-code {
-                background: #edf5fb;
-                border: 1px solid #bad8eb;
-                border-radius: 10px;
-                padding: 16px;
-                margin-bottom: 20px;
-                overflow-wrap: anywhere;
-            }
-
-            .search-bar {
-                display: grid;
-                grid-template-columns: 1fr 150px auto;
-                gap: 10px;
-                align-items: end;
-            }
-
-            .search-bar input,
-            .search-bar select { margin: 0; }
-
-            .results {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0,1fr));
-                gap: 15px;
-                margin-top: 20px;
-            }
-
-            .item-card {
-                border: 1px solid #e0e7ef;
-                border-radius: 10px;
-                padding: 20px;
-                min-width: 0;
-            }
-
-            .tag {
-                display: inline-block;
-                padding: 3px 10px;
-                border-radius: 30px;
-                font-size: 12px;
-                font-weight: bold;
-                background: #e8efff;
-                color: #275d9d;
-                margin-bottom: 10px;
-            }
-
-            .tag.found {
-                background: #e5f5e9;
-                color: #24703c;
-            }
-
-            .item-card h3 { overflow-wrap: anywhere; }
-
-            .item-card p {
-                margin: 6px 0;
-                font-size: 14px;
-                overflow-wrap: anywhere;
-            }
-
-            .request-box {
-                border-top: 1px solid #e0e7ef;
-                padding-top: 15px;
-                margin-top: 16px;
-            }
-
-            .request-box input,
-            .request-box textarea { margin-bottom: 10px; }
-
-            .request-entry {
-                background: #f7f9fc;
-                border-radius: 8px;
-                padding: 15px;
-                margin-top: 12px;
-                overflow-wrap: anywhere;
-            }
-
-            footer {
-                text-align: center;
-                color: #7b8896;
-                padding: 15px 0 35px;
-                font-size: 13px;
-            }
-
-            @media (max-width: 650px) {
-                .form-grid, .results, .search-bar {
-                    grid-template-columns: 1fr;
-                }
-                .panel { padding: 20px; }
-                header h1 { font-size: 28px; }
-            }
+            @media(max-width:400px) { .form-grid { grid-template-columns:1fr; } .search-bar { grid-template-columns:minmax(0,1fr) 76px; } .search-bar button { grid-column:1/-1; } nav { gap:10px; } }
+            @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
         </style>
     </head>
 
     <body>
+
+        <div class="topbar">
+            <div class="nav-inner">
+                <a class="brand" href="/" aria-label="FindBack 홈"><span class="brand-mark" aria-hidden="true">↗</span>FindBack<span style="color:#71a98c">.</span></a>
+                <nav aria-label="주요 메뉴"><a href="#register">물품 등록</a><a href="#search">물품 찾기</a><a href="#manage">요청 관리</a></nav>
+            </div>
+        </div>
         <header>
-            <h1>FindBack</h1>
-            <p>잃어버린 물건과 주인을 다시 연결합니다.</p>
+            <div>
+                <p class="eyebrow">LOST &amp; FOUND, TOGETHER</p>
+                <h1>잃어버린 물건,<br><span>다시 만나는 곳.</span></h1>
+                <p>작은 발견이 누군가에게는 큰 안심이 됩니다.</p>
+            </div>
+            <div class="hero-note">
+                <div class="hero-icon" aria-hidden="true"><svg width="31" height="31" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h16l2 17H6L8 10Z"/><path d="M12 11V8a4 4 0 0 1 8 0v3"/><path d="m12 19 3 3 6-7"/></svg></div>
+                <div><strong>당신의 발견을 연결해요</strong><small>등록하고 · 찾고 · 다시 만나세요</small></div>
+            </div>
         </header>
 
         <main class="container">
@@ -455,8 +350,9 @@ def home():
                 </div>
             {% endif %}
 
-            <section class="panel">
-                <h2>01. 분실물 · 습득물 등록</h2>
+            <div class="workspace">
+            <section class="panel register-panel" id="register">
+                <h2><span class="step">01</span> 분실물 · 습득물 등록</h2>
                 <p class="subtitle">
                     잃어버렸거나 주운 물건의 정보를 등록하세요.
                 </p>
@@ -497,10 +393,11 @@ def home():
                         물품 등록하기
                     </button>
                 </form>
+                <p class="form-note">습득물 등록 후 발급되는 관리 코드를 보관해 주세요.</p>
             </section>
 
-            <section class="panel">
-                <h2>02. 물품 검색 · 반환 요청</h2>
+            <section class="panel search-panel" id="search">
+                <h2><span class="step">02</span> 물품 검색 · 반환 요청</h2>
                 <p class="subtitle">
                     물품 이름, 장소 또는 특징으로 검색하세요.
                 </p>
@@ -527,6 +424,7 @@ def home():
                     <button type="submit">검색하기</button>
                 </form>
 
+                {% if not searched %}<p class="search-hint">이름이 기억나지 않아도 장소나 색상으로 찾아보세요.</p>{% endif %}
                 {% if searched %}
                     <h3 style="margin-top:25px">
                         검색 결과 {{ results|length }}건
@@ -586,8 +484,8 @@ def home():
                 {% endif %}
             </section>
 
-            <section class="panel">
-                <h2>03. 반환 요청 관리</h2>
+            <section class="panel manage-panel" id="manage">
+                <h2><span class="step">03</span> 반환 요청 관리</h2>
                 <p class="subtitle">
                     습득물을 등록한 사람이 관리 코드로 요청을 확인합니다.
                 </p>
@@ -631,10 +529,11 @@ def home():
                     {% endif %}
                 {% endif %}
             </section>
+            </div>
         </main>
 
         <footer>
-            FindBack | AWS 클라우드컴퓨팅 프로젝트
+            <strong>FindBack.</strong><span>다시 만나는 일상을 위해 · 분실물 찾기 서비스</span>
         </footer>
     </body>
     </html>
