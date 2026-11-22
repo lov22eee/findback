@@ -253,7 +253,7 @@ def home():
             .hero-icon { width:53px; height:53px; color:var(--teal); background:#fff; border-radius:16px; display:grid; place-items:center; }
             .hero-note strong { display:block; font-size:13px; margin-bottom:4px; }
             .hero-note small { color:#7c8874; font-size:11px; }
-            .container { max-width:1140px; margin:0 auto; padding:0 28px; }
+            .container { max-width:1140px; margin:28px auto 0; padding:0 28px; }
             .workspace { display:grid; grid-template-columns:1.05fr .95fr; gap:20px; align-items:start; }
             .panel { background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:0 4px 20px #193e2d04; scroll-margin-top:20px; min-width:0; }
             .register-panel { grid-column:1; grid-row:1 / span 2; border-top:3px solid var(--teal); }
@@ -316,20 +316,8 @@ def home():
         <div class="topbar">
             <div class="nav-inner">
                 <a class="brand" href="/" aria-label="FindBack 홈"><span class="brand-mark" aria-hidden="true">↗</span>FindBack<span style="color:#71a98c">.</span></a>
-                <nav aria-label="주요 메뉴"><a href="#register">물품 등록</a><a href="#search">물품 찾기</a><a href="#manage">요청 관리</a></nav>
             </div>
         </div>
-        <header>
-            <div>
-                <p class="eyebrow">LOST &amp; FOUND, TOGETHER</p>
-                <h1>잃어버린 물건,<br><span>다시 만나는 곳.</span></h1>
-                <p>작은 발견이 누군가에게는 큰 안심이 됩니다.</p>
-            </div>
-            <div class="hero-note">
-                <div class="hero-icon" aria-hidden="true"><svg width="31" height="31" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h16l2 17H6L8 10Z"/><path d="M12 11V8a4 4 0 0 1 8 0v3"/><path d="m12 19 3 3 6-7"/></svg></div>
-                <div><strong>당신의 발견을 연결해요</strong><small>등록하고 · 찾고 · 다시 만나세요</small></div>
-            </div>
-        </header>
 
         <main class="container">
 
